@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Productos</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.6.0/dist/css/tabler.min.css"
+          integrity="sha384-WLkiMEGvWxbrkZelrUJXN5Xd2tgGj7ZDMEnao/UbDfoLkmbXfZ4nDg6TEqngvS/y"
+          crossorigin="anonymous"/>
+</head>
+<body>
+<main class="page">
+    <section class="page-wrapper">
+        <div class="container-xl py-4">
+            <div class="card">
+                <div class="card-body">
+                    <h2 th:text="${titulo}"></h2>
+                    <section class="card">
+                        <p th:if="${error != null}">
+                            <span th:text="${error}"></span>
+                        </p>
+                    </section>
+                    <form th:action="@{/productos/crear}" method="post" th:object="${producto}">
+
+                        <input type="hidden" name="codProducto" id="codProducto" th:field="*{codProducto}"/>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="nombre">Nombre</label>
+                            <input class="form-control" type="text" name="nombre" id="nombre" th:field="*{nombre}"/>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="marca">Marca</label>
+                            <input class="form-control" type="text" name="marca" id="marca" th:field="*{marca}"/>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="categoria">Categoria</label>
+                            <input class="form-control" type="text" name="categoria" id="categoria" th:field="*{categoria}"/>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="precio">Precio</label>
+                            <input class="form-control" type="number" step="0.01" name="precio" id="precio" th:field="*{precio}"/>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="cantidad">Cantidad</label>
+                            <input class="form-control" type="number" step="1" name="cantidad" id="cantidad" th:field="*{cantidad}"/>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="descripcion">Descripcion</label>
+                            <input class="form-control" type="text" name="descripcion" id="descripcion" th:field="*{descripcion}"/>
+                        </div>
+
+                        <input type="submit" value="Guardar" class="btn btn-primary"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.6.0/dist/js/tabler.min.js"
+        integrity="sha384-nGovOW/ZWlLzx9B2bb/xwuNVzCW1N+DAqx1fmIF9MQakhUKmlW10wx2uv+I/Yguu"
+        crossorigin="anonymous"></script>
+</body>
+</html>

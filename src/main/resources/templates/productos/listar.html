@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Productos</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.6.0/dist/css/tabler.min.css"
+          integrity="sha384-WLkiMEGvWxbrkZelrUJXN5Xd2tgGj7ZDMEnao/UbDfoLkmbXfZ4nDg6TEqngvS/y"
+          crossorigin="anonymous"/>
+</head>
+<body>
+<main class="page">
+    <section class="page-wrapper">
+        <div class="container-xl py-4">
+            <div class="card">
+                <div class="card-body">
+                    <h1>Listado de productos</h1>
+                    <a th:href="@{/productos/nuevo}" class="btn btn-primary">Nuevo producto</a>
+
+                    <div class="table-responsive my-4" th:if="${!productos.isEmpty()}">
+                        <table class="table table-vcenter">
+                            <thead>
+                            <tr>
+                                <th>Codigo Producto</th>
+                                <th>Nombre</th>
+                                <th>Marca</th>
+                                <th>Categoria</th>
+                                <th>Precio</th>
+                                <th>Cantidad</th>
+                                <th>Descripcion</th>
+                                <th>Acciones</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="producto : ${productos}">
+                                    <td th:text="${producto.codProducto}"></td>
+                                    <td th:text="${producto.nombre}"></td>
+                                    <td th:text="${producto.marca}"></td>
+                                    <td th:text="${producto.categoria}"></td>
+                                    <td th:text="${producto.precio}"></td>
+                                    <td th:text="${producto.cantidad}"></td>
+                                    <td th:text="${producto.descripcion}"></td>
+                                    <td>
+                                        <a th:href="@{/productos/editar/{codProducto}(codProducto=${producto.codProducto})}" class="btn btn-warning">Editar</a>
+                                        <form th:action="@{/productos/eliminar/{codProducto}(codProducto=${producto.codProducto})}"
+                                                method="post"
+                                                onsubmit="return confirm('¿Desea eliminar este producto?')">
+                                            <button type="submit" class="btn btn-danger">
+                                                Eliminar
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <section th:if="${productos.isEmpty()}">
+                        <h3>No hay producto registrados</h3>
+                    </section>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.6.0/dist/js/tabler.min.js"
+        integrity="sha384-nGovOW/ZWlLzx9B2bb/xwuNVzCW1N+DAqx1fmIF9MQakhUKmlW10wx2uv+I/Yguu"
+        crossorigin="anonymous"></script>
+</body>
+</html>
